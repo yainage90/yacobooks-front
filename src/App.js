@@ -12,17 +12,9 @@ const Desktop = ({ children }) => {
   return isDesktop && children;
 };
 
-const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  return isTablet && children;
-};
 const Mobile = ({ children }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return isMobile && children;
-};
-const Default = ({ children }) => {
-  const isNotMobile = useMediaQuery({ minWidth: 768 });
-  return isNotMobile && children;
 };
 
 const { Content } = Layout;
@@ -42,17 +34,10 @@ function App() {
             <Route path="/book/search" component={SearchMain} exact />
           </Content>
         </Layout>
-        <h1>desktop</h1>
       </Desktop>
-      <Tablet>
-        <h1>tablet</h1>
-      </Tablet>
       <Mobile>
         <h1>mobile</h1>
       </Mobile>
-      <Default>
-        <h1>default</h1>
-      </Default>
     </BrowserRouter>
   );
 }
