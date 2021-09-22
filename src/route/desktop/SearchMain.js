@@ -5,14 +5,62 @@ import SearchBox from "../../component/desktop/SearchBox";
 
 import { Layout } from "antd";
 import SuggestBox from "../../component/desktop/SuggestBox";
+import BookList from "../../component/desktop/BookList";
+
+const jaums = new Set([
+  " ",
+  "ㄱ",
+  "ㄴ",
+  "ㄷ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅅ",
+  "ㅇ",
+  "ㅈ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+  "ㄳ",
+  "ㄵ",
+  "ㄶ",
+  "ㄺ",
+  "ㄻ",
+  "ㄼ",
+  "ㄽ",
+  "ㄾ",
+  "ㄿ",
+  "ㅀ",
+  "ㅄ",
+]);
 
 const SearchMain = () => {
   const [suggests, setSuggests] = useState([]);
+  const [books, setBooks] = useState([]);
+
+  const isChousngQuery = (query) => {
+    for (let c of query) {
+      if (!jaums.has(c)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
 
   const onChange = async (e) => {
     const query = e.target.value;
+
+    if (query.length < 2) {
+      setSuggests([]);
+      return;
+    }
+
+    const url = isChousngQuery(query) ? "/api/book/chosung" : "/api/book/ac";
+
     await axios({
-      url: "/api/book/ac",
+      url: url,
       method: "get",
       params: {
         query,
@@ -29,6 +77,10 @@ const SearchMain = () => {
   };
 
   const onSearch = async (query, page = 1) => {
+    if (query.length <= 0) {
+      return;
+    }
+
     await axios({
       url: "/api/book/search",
       method: "get",
@@ -38,12 +90,15 @@ const SearchMain = () => {
       },
     })
       .then((res) => {
-        alert(res.data);
+        console.log(res.data);
+        setBooks(res.data.books);
       })
       .catch((err) => {
         console.error(err);
         alert(err);
       });
+
+    setSuggests([]);
   };
 
   return (
@@ -65,7 +120,8 @@ const SearchMain = () => {
             onSearch(query);
           }}
         />
-        <SuggestBox titles={suggests} />
+        {suggests.length > 0 && <SuggestBox titles={suggests} />}
+        {books.length > 0 && <BookList books={books} />}
       </Layout>
     </Layout>
   );
