@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+  yacobooks_front:
+    container_name: yacobooks_front
+    build:
+      context: .
+    expose:
+      - 5000
+    
+  nginx:
+    container_name: yacobooks_proxy
+    build:
+      context: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - yacobooks_front
+
+networks:
+  default:
+    external:
+      name: yaco_net
