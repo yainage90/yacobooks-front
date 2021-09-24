@@ -7,13 +7,16 @@ import DesktopAppHeader from "./component/desktop/DesktopAppHeader";
 import { useMediaQuery } from "react-responsive";
 import SearchMain from "./route/desktop/SearchMain";
 
+import NavigationBar from "./route/mobile/NavigationBar";
+import MobileAppHeader from "./component/mobile/MobileAppHeader";
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
   return isDesktop && children;
 };
 
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isMobile = useMediaQuery({ maxWidth: 991 });
   return isMobile && children;
 };
 
@@ -36,7 +39,10 @@ function App() {
         </Layout>
       </Desktop>
       <Mobile>
-        <h1>mobile</h1>
+        <div className="app_layout">
+          <MobileAppHeader />
+          <NavigationBar />
+        </div>
       </Mobile>
     </BrowserRouter>
   );
