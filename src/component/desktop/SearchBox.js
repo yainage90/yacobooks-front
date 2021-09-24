@@ -4,7 +4,13 @@ import { Input } from "antd";
 
 const { Search } = Input;
 
-const SearchBox = ({ size, onSearch, onChange, placeholder }) => {
+const SearchBox = ({
+  size,
+  onSearch,
+  onChange,
+  placeholder,
+  searchBoxStyle,
+}) => {
   return (
     <Search
       placeholder={placeholder}
@@ -12,12 +18,12 @@ const SearchBox = ({ size, onSearch, onChange, placeholder }) => {
       size={size}
       onChange={onChange}
       onSearch={onSearch}
-      style={searchBoxStyle}
+      style={searchBoxStyle || defaultStyle}
     />
   );
 };
 
-const searchBoxStyle = {
+const defaultStyle = {
   width: "500px",
   maxWidth: "800px",
   minWidth: "300px",
