@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import SearchBox from "../../component/desktop/SearchBox";
 
-import { Layout } from "antd";
+import { Layout, Pagination } from "antd";
 import SuggestBox from "../../component/desktop/SuggestBox";
 import BookList from "../../component/desktop/BookList";
 
@@ -38,6 +38,9 @@ const jaums = new Set([
 const SearchMain = () => {
   const [suggests, setSuggests] = useState([]);
   const [books, setBooks] = useState([]);
+  const [searchedQuery, setSearchedQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const isChousngQuery = (query) => {
     for (let c of query) {
@@ -92,6 +95,9 @@ const SearchMain = () => {
       .then((res) => {
         console.log(res.data);
         setBooks(res.data.books);
+        setTotalCount(res.data.totalHits);
+        setSearchedQuery(query);
+        setCurrentPage(page);
       })
       .catch((err) => {
         console.error(err);
@@ -107,12 +113,7 @@ const SearchMain = () => {
         <SearchBox
           size="large"
           placeholder="검색어를 입력해주세요"
-          style={{
-            width: "50%",
-            maxWidth: "600px",
-            marginTop: "50px",
-            marginBottom: "50px",
-          }}
+          style={searchBoxStyle}
           onChange={(e) => {
             onChange(e);
           }}
@@ -121,7 +122,27 @@ const SearchMain = () => {
           }}
         />
         {suggests.length > 0 && <SuggestBox titles={suggests} />}
-        {books.length > 0 && <BookList books={books} />}
+        {books.length > 0 && (
+          <>
+            <BookList
+              books={books}
+              totalCount={totalCount}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+            />
+            <Pagination
+              defaultCurrent={1}
+              current={currentPage}
+              total={totalCount}
+              onChange={(page) => {
+                onSearch(searchedQuery, page);
+                setCurrentPage(page);
+              }}
+              showSizeChanger={false}
+            />
+          </>
+        )}
       </Layout>
     </Layout>
   );
@@ -149,6 +170,13 @@ const contentStyle = {
   width: "100%",
   background: "white",
   padding: "50px",
+};
+
+const searchBoxStyle = {
+  width: "50%",
+  maxWidth: "600px",
+  marginTop: "50px",
+  marginBottom: "50px",
 };
 
 export default SearchMain;
