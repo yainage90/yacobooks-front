@@ -9,7 +9,7 @@ const SuggestBox = ({ titles }) => {
         size="small"
         bordered
         dataSource={titles}
-        renderItem={(item) => <List.Item>{item}</List.Item>}
+        renderItem={(title) => <List.Item>{title}</List.Item>}
         style={suggestBoxStyle}
       />
     </Layout>
