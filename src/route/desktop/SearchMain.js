@@ -14,7 +14,14 @@ const SearchMain = () => {
   const { contextDispatch } = useContext(BookSearchContext);
   const { data } = useContext(BookSearchContext);
 
-  const { books, totalCount, currentPage, query, suggests } = data;
+  const {
+    books,
+    totalCount,
+    currentPage,
+    searchedQuery,
+    typedQuery,
+    suggests,
+  } = data;
 
   return (
     <Layout className="container" style={layoutStyle}>
@@ -30,7 +37,9 @@ const SearchMain = () => {
             onSearch(query, 1, contextDispatch);
           }}
         />
-        {suggests.length > 0 && <SuggestBox titles={suggests} />}
+        {typedQuery.length >= 2 && suggests.length > 0 && (
+          <SuggestBox titles={suggests} />
+        )}
         {books.length > 0 && (
           <>
             <BookList books={books} />
@@ -39,7 +48,7 @@ const SearchMain = () => {
               current={currentPage}
               total={totalCount}
               onChange={(page) => {
-                onSearch(query, page, contextDispatch);
+                onSearch(searchedQuery, page, contextDispatch);
               }}
               showSizeChanger={false}
             />

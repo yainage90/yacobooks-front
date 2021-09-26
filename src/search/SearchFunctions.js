@@ -40,6 +40,11 @@ export const isChousngQuery = (query) => {
 };
 
 export const onChange = async (value, contextDispatch) => {
+  contextDispatch({
+    type: "TYPING",
+    value: value || "",
+  });
+
   const query = value;
 
   if (query.length < 2) {
@@ -89,7 +94,7 @@ export const onSearch = async (query, page = 1, contextDispatch) => {
       contextDispatch({
         type: "DATA",
         value: {
-          query: query,
+          searchedQuery: query,
           currentPage: page,
           totalCount: res.data.totalHits,
           books: res.data.books,

@@ -3,7 +3,8 @@ import React, { useReducer } from "react";
 export const BookSearchContext = React.createContext();
 
 const initialState = {
-  query: "",
+  searchedQuery: "",
+  typedQuery: "",
   totalCount: 0,
   books: [],
   suggests: [],
@@ -13,17 +14,19 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "DATA":
-      return action.value;
+      return {
+        ...action.value,
+        typedQuery: state.typedQuery,
+      };
     case "SUGGESTS":
       return {
         ...state,
         suggests: action.value,
       };
-    case "PAGE":
+    case "TYPING":
       return {
         ...state,
-        books: action.value.books,
-        currentPage: action.value.currentPage,
+        typedQuery: action.value,
       };
     default:
       throw new Error("일치하는 명령이 존재하지 않습니다.");

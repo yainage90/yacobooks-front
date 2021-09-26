@@ -12,7 +12,14 @@ const SearchMobile = () => {
   const { contextDispatch } = useContext(BookSearchContext);
   const { data } = useContext(BookSearchContext);
 
-  const { books, totalCount, currentPage, query, suggests } = data;
+  const {
+    books,
+    totalCount,
+    currentPage,
+    searchedQuery,
+    typedQuery,
+    suggests,
+  } = data;
 
   return (
     <div
@@ -28,7 +35,9 @@ const SearchMobile = () => {
           onSearch(query, 1, contextDispatch);
         }}
       />
-      <SuggestBoxMobile titles={suggests} />
+      {typedQuery.length >= 2 && suggests.length > 0 && (
+        <SuggestBoxMobile titles={suggests} />
+      )}
       {books.length > 0 && (
         <>
           <BookListMobile books={books} />
@@ -37,7 +46,7 @@ const SearchMobile = () => {
             total={totalCount}
             current={currentPage}
             onChange={(page) => {
-              onSearch(query, page, contextDispatch);
+              onSearch(searchedQuery, page, contextDispatch);
             }}
             locale={{
               prevText: <Icon type="left" />,
