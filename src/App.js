@@ -10,6 +10,8 @@ import SearchMain from "./route/desktop/SearchMain";
 import NavigationBar from "./route/mobile/NavigationBar";
 import MobileAppHeader from "./component/mobile/MobileAppHeader";
 
+import BookSearchContextProvider from "./context/BookSearchContextProvider";
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
   return isDesktop && children;
@@ -34,14 +36,18 @@ function App() {
         >
           <DesktopAppHeader />
           <Content style={contentStyle}>
-            <Route path="/book/search" component={SearchMain} exact />
+            <BookSearchContextProvider>
+              <Route path="/book/search" component={SearchMain} exact />
+            </BookSearchContextProvider>
           </Content>
         </Layout>
       </Desktop>
       <Mobile>
         <div className="app_layout">
           <MobileAppHeader />
-          <NavigationBar />
+          <BookSearchContextProvider>
+            <NavigationBar />
+          </BookSearchContextProvider>
         </div>
       </Mobile>
     </BrowserRouter>
