@@ -39,7 +39,10 @@ export const isChousngQuery = (query) => {
   return true;
 };
 
-export const onChange = async (value, contextDispatch) => {
+let cancelToken;
+let timerId;
+
+export const onChange = (value, contextDispatch) => {
   contextDispatch({
     type: "TYPING",
     value: value || "",
@@ -55,26 +58,43 @@ export const onChange = async (value, contextDispatch) => {
     return;
   }
 
+  if (timerId) {
+    clearTimeout(timerId);
+  }
+
+  if (typeof cancelToken != typeof undefined) {
+    cancelToken.cancel("canceled prev request");
+  }
+
   const url = isChousngQuery(query) ? "/api/book/chosung" : "/api/book/ac";
 
-  await axios({
-    url: url,
-    method: "get",
-    params: {
-      query,
-    },
-  })
-    .then((res) => {
-      console.log(res.data.titles);
-      contextDispatch({
-        type: "SUGGESTS",
-        value: res.data.titles,
+  cancelToken = axios.CancelToken.source();
+
+  const sendRequest = async () => {
+    await axios(
+      {
+        url: url,
+        method: "get",
+        params: {
+          query,
+        },
+      },
+      { cancelToken: cancelToken }
+    )
+      .then((res) => {
+        console.log(res.data.titles);
+        contextDispatch({
+          type: "SUGGESTS",
+          value: res.data.titles,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err);
       });
-    })
-    .catch((err) => {
-      console.error(err);
-      alert(err);
-    });
+  };
+
+  timerId = setTimeout(sendRequest, 10);
 };
 
 export const onSearch = async (query, page = 1, contextDispatch) => {
