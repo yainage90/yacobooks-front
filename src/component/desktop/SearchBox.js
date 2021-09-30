@@ -1,31 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { Input } from "antd";
+import { Input, AutoComplete } from "antd";
 
-const { Search } = Input;
+import { BookSearchContext } from "../../context/BookSearchContextProvider";
 
-const SearchBox = ({
-  size,
-  onSearch,
-  onChange,
-  placeholder,
-  searchBoxStyle,
-}) => {
+import { onChange, onSearch } from "../../search/SearchFunctions";
+
+const SearchBox = () => {
+  const { contextDispatch } = useContext(BookSearchContext);
+  const { data } = useContext(BookSearchContext);
+
+  const { suggests } = data;
+
+  console.log(suggests);
+
   return (
-    <Search
-      placeholder={placeholder}
-      enterButton="검색"
-      size={size}
-      onChange={onChange}
-      onSearch={onSearch}
-      style={searchBoxStyle || defaultStyle}
-    />
+    <AutoComplete
+      style={defaultStyle}
+      options={suggests.map((suggest, index) => ({
+        key: index,
+        value: suggest,
+        label: suggest,
+      }))}
+      onSelect={(value) => {
+        onSearch(value, 1, contextDispatch);
+      }}
+    >
+      <Input.Search
+        size="large"
+        placeholder={"검색어를 입력하세요"}
+        enterButton
+        onSearch={(value) => {
+          onSearch(value, 1, contextDispatch);
+        }}
+        onChange={(e) => {
+          onChange(e.target.value, contextDispatch);
+        }}
+        allowClear
+      />
+    </AutoComplete>
   );
 };
 
 const defaultStyle = {
-  width: "500px",
-  maxWidth: "800px",
+  width: "100%",
+  maxWidth: "600px",
   minWidth: "300px",
   fontSize: "larger",
   fontFamily: "notosans_bold",
