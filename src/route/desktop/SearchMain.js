@@ -3,25 +3,17 @@ import React, { useContext } from "react";
 import SearchBox from "../../component/desktop/SearchBox";
 
 import { Layout, Pagination } from "antd";
-import SuggestBox from "../../component/desktop/SuggestBox";
 import BookList from "../../component/desktop/BookList";
 
 import { BookSearchContext } from "../../context/BookSearchContextProvider";
 
-import { onChange, onSearch } from "../../search/SearchFunctions";
+import { onSearch } from "../../search/SearchFunctions";
 
 const SearchMain = () => {
   const { contextDispatch } = useContext(BookSearchContext);
   const { data } = useContext(BookSearchContext);
 
-  const {
-    books,
-    totalCount,
-    currentPage,
-    searchedQuery,
-    typedQuery,
-    suggests,
-  } = data;
+  const { books, totalCount, currentPage, searchedQuery } = data;
 
   return (
     <Layout className="container" style={layoutStyle}>
@@ -30,16 +22,7 @@ const SearchMain = () => {
           size="large"
           placeholder="검색어를 입력해주세요"
           style={searchBoxStyle}
-          onChange={(e) => {
-            onChange(e.target.value, contextDispatch);
-          }}
-          onSearch={(query) => {
-            onSearch(query, 1, contextDispatch);
-          }}
         />
-        {typedQuery.length >= 2 && suggests.length > 0 && (
-          <SuggestBox titles={suggests} />
-        )}
         {books.length > 0 && (
           <>
             <BookList books={books} />
