@@ -13,11 +13,8 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "DATA":
-      return {
-        ...action.value,
-        typedQuery: state.typedQuery,
-      };
+    case "SEARCH":
+      return action.value;
     case "SUGGESTS":
       return {
         ...state,
