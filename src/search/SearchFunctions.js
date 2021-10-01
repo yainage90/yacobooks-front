@@ -16,6 +16,11 @@ const jaums = new Set([
   "ㅌ",
   "ㅍ",
   "ㅎ",
+  "ㄲ",
+  "ㄸ",
+  "ㅃ",
+  "ㅆ",
+  "ㅉ",
   "ㄳ",
   "ㄵ",
   "ㄶ",
@@ -112,8 +117,9 @@ export const onSearch = async (query, page = 1, contextDispatch) => {
   })
     .then((res) => {
       contextDispatch({
-        type: "DATA",
+        type: "SEARCH",
         value: {
+          typedQuery: query,
           searchedQuery: query,
           currentPage: page,
           totalCount: res.data.totalHits,
