@@ -85,6 +85,7 @@ const autoCompleteStyle = {
     fontSize: "16px",
     width: "100%",
     height: "56px",
+    background: "#fff",
   },
   suggestList: {
     position: "absolute",

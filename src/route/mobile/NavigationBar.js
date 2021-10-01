@@ -7,7 +7,15 @@ const NavigationBar = () => {
   const [selectedTab, setSelectedTab] = useState("searchTab");
 
   return (
-    <div style={{ position: "fixed", width: "100%", top: "3rem", bottom: 0 }}>
+    <div
+      style={{
+        background: "#fff",
+        position: "fixed",
+        width: "100%",
+        top: "3rem",
+        bottom: 0,
+      }}
+    >
       <TabBar
         unselectedTintColor="#949494"
         tintColor="#33A3F4"
