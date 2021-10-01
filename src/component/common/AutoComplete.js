@@ -62,6 +62,12 @@ const AutoComplete = ({ style, max }) => {
           }}
           style={style.searchInput}
           ref={inputRef}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onSearch(e.target.value, 1, contextDispatch);
+            }
+          }}
+          autoComplete="off"
         />
         {suggests && (
           <div id="suggest-list" class="suggests" style={style.suggestList}>
