@@ -42,8 +42,8 @@ const layoutStyle = {
   display: "flex",
   flexDirection: "row",
   width: "70%",
-  maxWidth: "100%",
   minWidth: "300px",
+  maxWidth: "800px",
   height: "100%",
   minHeight: "600px",
   overflow: "auto",
@@ -57,9 +57,6 @@ const contentStyle = {
   flexDirection: "column",
   justifyContent: "flex-start",
   alignItems: "center",
-  maxWidth: "1920px",
-  minWidth: "800px",
-  width: "100%",
   background: "white",
   padding: "50px",
 };
@@ -68,7 +65,7 @@ const autoCompleteStyle = {
   layout: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
+    width: "90%",
     minWidth: "300px",
     maxWidth: "600px",
   },
