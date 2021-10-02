@@ -4,6 +4,15 @@ import { List } from "antd";
 import Layout from "antd/lib/layout/layout";
 import BookItem from "./BookItem";
 
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const BookItemContainer = styled.div`
+  &:hover {
+    background-color: #0000ff30;
+  }
+`;
+
 const BookList = ({ books }) => {
   console.log(books);
 
@@ -12,11 +21,13 @@ const BookList = ({ books }) => {
       <List
         size="large"
         dataSource={books}
-        renderItem={(book) => <BookItem book={book} />}
-        style={{
-          width: "100%",
-          maxWidth: "1024px",
-        }}
+        renderItem={(book) => (
+          <BookItemContainer>
+            <Link key={book.isbn13} to={`/book/${book.isbn13}`}>
+              <BookItem book={book} />
+            </Link>
+          </BookItemContainer>
+        )}
       />
     </Layout>
   );
@@ -25,7 +36,6 @@ const BookList = ({ books }) => {
 const bookListContainerStyle = {
   display: "flex",
   flexDirection: "column",
-  //width: "70%",
   alignItems: "center",
   paddingTop: "5%",
 };
