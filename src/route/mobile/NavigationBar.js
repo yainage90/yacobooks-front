@@ -37,7 +37,7 @@ const NavigationBar = () => {
           }}
           data-seed="logId"
         >
-          <Route path="/" component={SearchMobile} />
+          <Route path="/" component={SearchMobile} exact />
           <Route path="/book/search" component={SearchMobile} exact />
           <Route path={"/book/product/:id"} component={BookMobile} exact />
         </TabBar.Item>
