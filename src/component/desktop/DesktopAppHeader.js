@@ -6,7 +6,7 @@ const { Header } = Layout;
 const navs = [
   {
     title: "검색",
-    link: "/search",
+    link: "/book/search",
   },
 ];
 
