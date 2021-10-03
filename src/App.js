@@ -38,9 +38,9 @@ function App() {
           <DesktopAppHeader />
           <Content style={contentStyle}>
             <BookSearchContextProvider>
-              <Route path="/search" component={SearchMain} exact />
+              <Route path="/book/search" component={SearchMain} exact />
             </BookSearchContextProvider>
-            <Route path="/book/:id" component={Book} exact />
+            <Route path="/book/product/:id" component={Book} exact />
           </Content>
         </Layout>
       </Desktop>
