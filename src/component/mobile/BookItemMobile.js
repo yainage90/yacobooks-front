@@ -38,8 +38,9 @@ const bookInfoContainerStyle = {
 };
 
 const bookTitleStyle = {
-  fontFamily: "notosans_black",
+  fontFamily: "notosans_bold",
   fontSize: "0.9rem",
+  color: "#000",
   margin: "0 0 0.3rem 0",
 };
 
