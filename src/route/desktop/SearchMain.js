@@ -43,7 +43,7 @@ const layoutStyle = {
   flexDirection: "row",
   width: "70%",
   minWidth: "300px",
-  maxWidth: "800px",
+  maxWidth: "1024px",
   height: "100%",
   minHeight: "600px",
   overflow: "auto",
