@@ -8,7 +8,7 @@ import axios from "axios";
 
 const BookMobile = () => {
   const { id } = useParams();
-  const [book, setBook] = useState(Object.create({}));
+  const [book, setBook] = useState(null);
 
   useEffect(async () => {
     await axios({
@@ -26,30 +26,32 @@ const BookMobile = () => {
   }, id);
 
   return (
-    <div style={layoutStyle}>
-      <div style={imageContainerStyle}>
-        <Image
-          src={book.imageUrl}
-          width="160px"
-          height="220px"
-          fallback={missingImage}
-          style={{
-            border: "1px solid #c0c0c0",
-          }}
-        />
+    book && (
+      <div style={layoutStyle}>
+        <div style={imageContainerStyle}>
+          <Image
+            src={book.imageUrl}
+            width="160px"
+            height="220px"
+            fallback={missingImage}
+            style={{
+              border: "1px solid #c0c0c0",
+            }}
+          />
+        </div>
+        <div className="book-info-container" style={bookInfoContainerStyle}>
+          <p className="title" style={titleStyle}>
+            {book.title}
+          </p>
+          <p className="metadata" style={metaDataStyle}>
+            {book.author + " | " + book.publisher + " | " + book.pubDate}
+          </p>
+          <p className="description" style={descriptionStyle}>
+            {book.description}
+          </p>
+        </div>
       </div>
-      <div className="book-info-container" style={bookInfoContainerStyle}>
-        <p className="title" style={titleStyle}>
-          {book.title}
-        </p>
-        <p className="metadata" style={metaDataStyle}>
-          {book.author + " | " + book.publisher + " | " + book.pubDate}
-        </p>
-        <p className="description" style={descriptionStyle}>
-          {book.description}
-        </p>
-      </div>
-    </div>
+    )
   );
 };
 

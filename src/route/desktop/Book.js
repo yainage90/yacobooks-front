@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Book = () => {
   const { id } = useParams();
-  const [book, setBook] = useState(Object.create({}));
+  const [book, setBook] = useState(null);
 
   useEffect(async () => {
     await axios({
@@ -26,36 +26,38 @@ const Book = () => {
   }, id);
 
   return (
-    <div style={layoutStyle}>
-      <div
-        className="book-layout"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <Image
-          src={book.imageUrl}
-          width="200px"
-          height="260px"
-          fallback={missingImage}
+    book && (
+      <div style={layoutStyle}>
+        <div
+          className="book-layout"
           style={{
-            border: "1px solid #c0c0c0",
+            display: "flex",
+            flexDirection: "row",
           }}
-        />
-        <div className="book-info-container" style={bookInfoContainerStyle}>
-          <p className="title" style={titleStyle}>
-            {book.title}
-          </p>
-          <p className="metadata" style={metaDataStyle}>
-            {book.author + " | " + book.publisher + " | " + book.pubDate}
-          </p>
+        >
+          <Image
+            src={book.imageUrl}
+            width="200px"
+            height="260px"
+            fallback={missingImage}
+            style={{
+              border: "1px solid #c0c0c0",
+            }}
+          />
+          <div className="book-info-container" style={bookInfoContainerStyle}>
+            <p className="title" style={titleStyle}>
+              {book.title}
+            </p>
+            <p className="metadata" style={metaDataStyle}>
+              {book.author + " | " + book.publisher + " | " + book.pubDate}
+            </p>
+          </div>
         </div>
+        <p className="description" style={descriptionStyle}>
+          {book.description}
+        </p>
       </div>
-      <p className="description" style={descriptionStyle}>
-        {book.description}
-      </p>
-    </div>
+    )
   );
 };
 
@@ -70,7 +72,9 @@ const layoutStyle = {
 const bookInfoContainerStyle = {
   display: "flex",
   flexDirection: "column",
+  alignItems: "flex-start",
   margin: "0 0 0 30px",
+  maxWidth: "800px",
 };
 
 const titleStyle = {
