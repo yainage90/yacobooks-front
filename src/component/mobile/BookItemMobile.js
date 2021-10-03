@@ -7,13 +7,18 @@ import missingImage from "../../resources/missing.png";
 const BookItemMobile = ({ book }) => {
   return (
     <div style={bookItemContainerStyle}>
-      <div>
+      <div
+        style={{
+          minWidth: "74px",
+        }}
+      >
         <Image
           src={book.imageUrl}
           alt={book.title}
           width="74px"
           height="90px"
           fallback={missingImage}
+          preview={false}
         />
       </div>
       <div style={bookInfoContainerStyle}>

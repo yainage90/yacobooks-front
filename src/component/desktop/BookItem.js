@@ -14,6 +14,7 @@ const BookItem = ({ book }) => {
             width="100px"
             height="130px"
             fallback={missingImage}
+            preview={false}
           />
         </div>
         <div style={bookInfoContainerStyle}>
@@ -37,23 +38,25 @@ const bookInfoContainerStyle = {
   display: "flex",
   flexDirection: "column",
   margin: "0 0 0 30px",
+  maxWidth: "900px",
 };
 
 const titleStyle = {
   fontFamily: "notosans_bold",
-  fontSize: "16px",
+  fontSize: "18px",
   margin: "0 0 10px 0",
 };
 
 const metaDataStyle = {
   fontFamily: "notosans_medium",
-  fontSize: "14px",
+  fontSize: "15px",
+  color: "#606060",
   margin: "0 0 10px 0",
 };
 
 const descriptionStyle = {
   fontFamily: "notosans_light",
-  fontSize: "12px",
+  fontSize: "14px",
 };
 
 export default BookItem;
