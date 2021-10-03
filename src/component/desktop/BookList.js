@@ -23,7 +23,7 @@ const BookList = ({ books }) => {
         dataSource={books}
         renderItem={(book) => (
           <BookItemContainer>
-            <Link key={book.isbn13} to={`/book/${book.isbn13}`}>
+            <Link key={book.isbn13} to={`/book/product/${book.isbn13}`}>
               <BookItem book={book} />
             </Link>
           </BookItemContainer>
