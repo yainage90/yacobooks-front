@@ -24,7 +24,7 @@ const SearchMobile = () => {
         <>
           <BookListMobile books={books} />
           <Pagination
-            total={totalCount / 10 + (totalCount % 10 > 0 ? 1 : 0)}
+            total={parseInt(totalCount / 10) + (totalCount % 10 > 0 ? 1 : 0)}
             current={currentPage}
             onChange={(page) => {
               onSearch(searchedQuery, page, contextDispatch);
