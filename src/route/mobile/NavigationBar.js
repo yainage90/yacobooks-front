@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
+import { Route } from "react-router";
+
 import { TabBar, Icon } from "antd-mobile";
 import SearchMobile from "./SearchMobile";
+import BookMobile from "./BookMobile";
 
 const NavigationBar = () => {
   const [selectedTab, setSelectedTab] = useState("searchTab");
@@ -34,7 +37,8 @@ const NavigationBar = () => {
           }}
           data-seed="logId"
         >
-          <SearchMobile />
+          <Route path="/book/search" component={SearchMobile} />
+          <Route path={`/book/product/:id`} component={BookMobile} />
         </TabBar.Item>
       </TabBar>
     </div>
