@@ -34,16 +34,6 @@ const jaums = new Set([
   "ㅄ",
 ]);
 
-export const isChousngQuery = (query) => {
-  for (let c of query) {
-    if (!jaums.has(c)) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
 let cancelToken;
 let timerId;
 
@@ -71,14 +61,12 @@ export const onChange = (value, contextDispatch) => {
     cancelToken.cancel("canceled prev request");
   }
 
-  const url = isChousngQuery(query) ? "/api/book/chosung" : "/api/book/ac";
-
   cancelToken = axios.CancelToken.source();
 
   const sendRequest = async () => {
     await axios(
       {
-        url: url,
+        url: "/api/book/suggest",
         method: "get",
         params: {
           query,
